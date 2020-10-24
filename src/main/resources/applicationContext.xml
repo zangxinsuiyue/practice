@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="user" class="com.spring.entity.User">
+        <property name="username" value="刘浩哲"/>
+        <property name="sex" value="男"/>
+        <property name="address" value="人和小区"/>
+        <property name="age" value="18"/>
+        <property name="birthday">
+            <bean class="java.util.Date">
+            </bean>
+        </property>
+
+        <property name="jobs">
+            <list>
+                <bean class="com.spring.entity.Job">
+                    <property name="jobName" value="老师"/>
+                </bean>
+                <bean class="com.spring.entity.Job">
+                    <property name="jobName" value="僧人"/>
+                </bean>
+            </list>
+        </property>
+
+        <property name="parent">
+            <map>
+                <entry key="father" value="jack"/>
+                <entry key="mother" value="rose"/>
+            </map>
+        </property>
+    </bean>
+<!--bean继承-->
+    <bean id="cloneUser" class="com.spring.entity.User" parent="user">
+        <property name="username" value="刘浩哲的小号"/>
+    </bean>
+
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:jdbc.properties"/>
+<!--    数据库连接池-->
+    <bean id="pool" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${driver}"/>
+        <property name="username" value="${name}"/>
+        <property name="url" value="${url}"/>
+        <property name="password" value="${pwd}"/>
+    </bean>
+</beans>
