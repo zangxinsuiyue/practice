@@ -3,6 +3,8 @@ package com.spring.test;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.spring.controller.UserServlet;
 import com.spring.dao.UserDao;
+import com.spring.service.BookService;
+import com.spring.service.UserService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -42,6 +44,15 @@ public class SimpleBeanTest {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("autowireByAnnotation.xml");
         UserServlet userServlet = (UserServlet) applicationContext.getBean("userServlet");
 //        userServlet.save();
+    }
+
+    @Test
+    public void genericityDI(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("autowireByAnnotation.xml");
+        BookService bookService = applicationContext.getBean(BookService.class);
+        UserService userService = applicationContext.getBean(UserService.class);
+        bookService.save();
+        userService.save();
     }
 }
 
